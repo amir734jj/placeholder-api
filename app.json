@@ -1,0 +1,6 @@
+{
+    "name": "placeholder-api",
+    "description": "High performance image placeholder generator API with caching support",
+    "repository": "https://github.com/amir734jj/placeholder-api",
+    "keywords": ["csharp", "aspnetcore", "placeholder"]
+}
