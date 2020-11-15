@@ -2,7 +2,7 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-High performance image placeholder generator API with caching support
+High performance image placeholder generator API with caching support. Basically open-source alternative to [placeholder.com](https://placeholder.com/)
 
 ```
 GET /placeholder?options
