@@ -17,18 +17,19 @@ namespace Logic
             _cache = factory.GetCachingProvider("memory");
         }
 
-        public async Task<(byte[] file, string contentType)> Resolve(int height, int width, KnownColor color,
+        public async Task<(byte[] file, string contentType, string name)> Resolve(int height, int width, KnownColor color,
             string text,
             KnownImageFormat format, string cacheKey)
         {
             var contentType = format.ToContentType();
+            var name = $"thumbnail.{contentType.Split('/')[1]}";
             var fontSize = Math.Max(height, width) / 10;
 
             var response = await _cache.GetAsync<byte[]>(cacheKey);
 
             if (response.HasValue)
             {
-                return (response.Value, contentType);
+                return (response.Value, contentType, name);
             }
 
             var bitmap = new Bitmap(width, height);
@@ -54,7 +55,7 @@ namespace Logic
 
             await _cache.SetAsync(cacheKey, bytes, TimeSpan.FromMinutes(5));
 
-            return (bytes, contentType);
+            return (bytes, contentType, name);
         }
     }
 }

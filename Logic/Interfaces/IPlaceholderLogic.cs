@@ -6,7 +6,7 @@ namespace Logic.Interfaces
 {
     public interface IPlaceholderLogic
     {
-        Task<(byte[] file, string contentType)> Resolve(
+        Task<(byte[] file, string contentType, string name)> Resolve(
             int height,
             int width,
             KnownColor color,

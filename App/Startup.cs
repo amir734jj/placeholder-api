@@ -1,10 +1,12 @@
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
 using Logic;
 using Logic.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,11 +31,15 @@ namespace App
 
             builder.Build();
         }
-        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCaching();
+
+            services.AddResponseCompression();
+
             services.AddHttpsRedirection(options => options.HttpsPort = 443);
 
             // If environment is localhost, then enable CORS policy, otherwise no cross-origin access
@@ -41,9 +47,15 @@ namespace App
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod()));
-            
-            services.AddMvc().AddNewtonsoftJson(options =>  options.SerializerSettings.Converters.Add(new StringEnumConverter()));
-            
+
+            services.AddMvc().AddNewtonsoftJson(options =>
+                options.SerializerSettings.Converters.Add(new StringEnumConverter()));
+
+            services.Configure<GzipCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Fastest;
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -68,11 +80,11 @@ namespace App
                     c.IncludeXmlComments(xmlPath);
                 }
             });
-            
+
             services.AddSwaggerGenNewtonsoftSupport();
 
             services.AddEasyCaching(options => options.UseInMemory("memory"));
-            
+
             services.AddScoped<IPlaceholderLogic, PlaceholderLogic>();
         }
 
@@ -83,9 +95,13 @@ namespace App
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            app.UseResponseCaching();
+
+            app.UseResponseCompression();
+
             app.UseCors("CorsPolicy");
-            
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 

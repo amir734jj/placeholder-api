@@ -31,13 +31,13 @@ namespace App.Controllers
             string text = "",
             KnownImageFormat format = KnownImageFormat.Png)
         {
-            var request = await new StreamReader(Request.Body).ReadToEndAsync();
+            var request = Request.QueryString.ToUriComponent();
 
             var cacheKey = BitConverter.ToString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(request)));
 
-            var (data, contentType) = await _placeholderLogic.Resolve(height, width, color, text, format, cacheKey);
+            var (data, contentType, name) = await _placeholderLogic.Resolve(height, width, color, text, format, cacheKey);
 
-            return File(data, contentType);
+            return File(data, contentType, name);
         }
     }
 }
