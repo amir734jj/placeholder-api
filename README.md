@@ -26,7 +26,7 @@ Enums:
 
 Example:
 ```
-http://localhost:5000/Placeholder?height=100&width=200&text=Thumbnail&format=Png&color=White
+http://localhost:5000/Placeholder?height=100&width=200&text=Thumbnail&format=Png&color=Grey
 ```
 
 ![Thumbnail](thumbnail.png)
