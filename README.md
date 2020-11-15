@@ -11,7 +11,7 @@ GET /placeholder?options
 Features:
 - .NET Core built-in response compression (gzip)
 - .NET Core built-in response caching
-- `EasyCaching` library for caching the generated thumbnail for 5 minutes
+- [`EasyCaching`](https://github.com/dotnetcore/EasyCaching) library for caching the generated thumbnail for 5 minutes
 
 Options:
 - height: `Integer` => `100` (default)
