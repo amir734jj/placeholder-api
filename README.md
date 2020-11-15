@@ -5,7 +5,7 @@
 High performance image placeholder generator API with caching support
 
 ```
-/placeholder?options
+GET /placeholder?options
 ```
 
 Features:
