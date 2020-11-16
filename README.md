@@ -14,6 +14,7 @@ Features:
 - .NET Core built-in response compression (gzip)
 - .NET Core built-in response caching
 - [`EasyCaching`](https://github.com/dotnetcore/EasyCaching) library for caching the generated thumbnail for 5 minutes
+- Swagger API documentation `/swagger`
 
 Options:
 - height: `Integer` => `100` (default)
