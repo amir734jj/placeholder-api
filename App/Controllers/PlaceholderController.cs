@@ -25,17 +25,20 @@ namespace App.Controllers
         [HttpGet]
         [SwaggerOperation("CreatePlaceholderImage")]
         [ProducesResponseType(typeof(File), 200)]
-        public async Task<IActionResult> Index(int height = 100,
+        public async Task<IActionResult> Index(
+            int height = 100,
             int width = 100,
             KnownColor color = KnownColor.LightGray,
-            string text = "",
-            KnownImageFormat format = KnownImageFormat.Png)
+            string text = "thumbnail",
+            KnownImageFormat format = KnownImageFormat.Png
+        )
         {
             var request = Request.QueryString.ToUriComponent();
 
             var cacheKey = BitConverter.ToString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(request)));
 
-            var (data, contentType, name) = await _placeholderLogic.Resolve(height, width, color, text, format, cacheKey);
+            var (data, contentType, name) =
+                await _placeholderLogic.Resolve(height, width, color, text, format, cacheKey);
 
             return File(data, contentType, name);
         }
