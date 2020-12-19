@@ -6,6 +6,8 @@ High performance image placeholder generator API with caching support
 
 Basically open-source alternative to [placeholder.com](https://placeholder.com/)
 
+[API URL](https://image-placeholder-api.herokuapp.com/)
+
 ```
 GET /placeholder?options
 ```
