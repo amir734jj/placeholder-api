@@ -20,7 +20,7 @@ Options:
 - height: `Integer` => `100` (default)
 - width: `Integer` => `100` (default)
 - color: `KnownColor` (enum) => `LightGrey` (default)
-- text: `String` => `""` (default)
+- text: `String` => `"thumbnail"` (default)
 - format: `KnownImageFormat` (enum) => `Png` (default)
 
 Enums:
